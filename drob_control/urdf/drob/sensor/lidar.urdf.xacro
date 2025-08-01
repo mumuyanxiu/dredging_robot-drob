@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 雷达传感器 xacro 文件 -->
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- 雷达宏定义 -->
+  <xacro:macro name="lidar_xacro" params="xyz">
+    
+    <!-- ============雷达支撑杆================ -->
+    <link name="lidar_cylinder_link">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <mass value="0.01" />
+        <inertia
+          ixx="0.0001"
+          ixy="0"
+          ixz="0"
+          iyy="0.0001"
+          iyz="0"
+          izz="0.0001" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <cylinder length="0.10" radius="0.01" />
+        </geometry>
+        <material name="black">
+          <color rgba="0.0 0.0 0.0 0.8" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <cylinder length="0.10" radius="0.01" />
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="lidar_cylinder_joint" type="fixed">
+      <parent link="base_link" />
+      <child link="lidar_cylinder_link" />
+      <origin xyz="${xyz}" />
+    </joint>
+
+    <!-- ============雷达传感器================ -->
+    <link name="lidar_link">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <mass value="0.03" />
+        <inertia
+          ixx="0.0001"
+          ixy="0"
+          ixz="0"
+          iyy="0.0001"
+          iyz="0"
+          izz="0.0001" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <cylinder length="0.02" radius="0.02" />
+        </geometry>
+        <material name="black">
+          <color rgba="0.0 0.0 0.0 0.8" />
+        </material>
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <cylinder length="0.02" radius="0.02" />
+        </geometry>
+      </collision>
+    </link>
+
+    <joint name="lidar_joint" type="fixed">
+      <parent link="lidar_cylinder_link" />
+      <child link="lidar_link" />
+      <origin xyz="0 0 0.05" />
+    </joint>
+
+    <!-- Gazebo标签 -->
+    <gazebo reference="lidar_cylinder_link">
+      <material>Gazebo/Black</material>
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+    </gazebo>
+
+    <gazebo reference="lidar_link">
+      <material>Gazebo/Black</material>
+      <mu1>0.2</mu1>
+      <mu2>0.2</mu2>
+    </gazebo>
+
+  </xacro:macro>
+
+</robot> 

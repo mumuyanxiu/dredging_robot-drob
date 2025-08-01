@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This XACRO was converted from URDF created by SolidWorks to URDF Exporter! 
+     Original URDF created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="car">
+
+  <!-- 定义材料 -->
+  <material name="white">
+    <color rgba="1 1 1 1" />
+  </material>
+
+  <!-- 定义轮子参数宏 -->
+  <xacro:macro name="wheel_link" params="name mesh_file">
+    <link name="${name}">
+      <inertial>
+        <origin xyz="0.0369811320754719 -7.7715611723761E-16 -1.13797860024079E-15" rpy="0 0 0" />
+        <mass value="0.166504410640259" />
+        <inertia 
+          ixx="9.49153680465817E-05"
+          ixy="-4.20723156859578E-21"
+          ixz="3.32636648653541E-22"
+          iyy="8.82470165646165E-05"
+          iyz="0"
+          izz="8.82470165646165E-05" />
+      </inertial>
+      <visual>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://drob_control/meshes/${mesh_file}.STL" />
+        </geometry>
+        <material name="white" />
+      </visual>
+      <collision>
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <geometry>
+          <mesh filename="package://drob_control/meshes/${mesh_file}.STL" />
+        </geometry>
+      </collision>
+    </link>
+  </xacro:macro>
+
+  <!-- 定义轮子关节宏 -->
+  <xacro:macro name="wheel_joint" params="name parent child xyz rpy">
+    <joint name="${name}" type="continuous">
+      <origin xyz="${xyz}" rpy="${rpy}" />
+      <parent link="${parent}" />
+      <child link="${child}" />
+      <axis xyz="1 0 0" />
+    </joint>
+  </xacro:macro>
+
+  <!-- 主体链接 -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0.15 0.125782760442477 0.0905056224994855" rpy="0 0 0" />
+      <mass value="33.5751223260577" />
+      <inertia
+        ixx="0.448373143813742"
+        ixy="2.22672766169457E-17"
+        ixz="6.55095281406476E-18"    
+        iyy="0.342599743069878"
+        iyz="0.0053567955300172"
+        izz="0.580163577047672" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://drob_control/meshes/base_link.STL" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <mesh filename="package://drob_control/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- 使用宏创建四个轮子 -->
+  <xacro:wheel_link name="rbw" mesh_file="rbw" />
+  <xacro:wheel_link name="lbw" mesh_file="lbw" />
+  <xacro:wheel_link name="lfw" mesh_file="lfw" />
+  <xacro:wheel_link name="rfw" mesh_file="rfw" />
+
+  <!-- 使用宏创建四个轮子关节 -->
+  <xacro:wheel_joint 
+    name="rbj" 
+    parent="base_link" 
+    child="rbw" 
+    xyz="0 0.33 0.0299999999999998" 
+    rpy="0.526415693374454 0 3.14159265358979" />
+  
+  <xacro:wheel_joint 
+    name="lbj" 
+    parent="base_link" 
+    child="lbw" 
+    xyz="0.28 0.33 0.0299999999999991" 
+    rpy="-2.61517696021534 0 0" />
+  
+  <xacro:wheel_joint 
+    name="lfj" 
+    parent="base_link" 
+    child="lfw" 
+    xyz="0.28 0.0700000000000002 0.0299999999999993" 
+    rpy="-2.61517696021534 0 0" />
+  
+  <xacro:wheel_joint 
+    name="rfj" 
+    parent="base_link" 
+    child="rfw" 
+    xyz="0 0.0700000000000001 0.0300000000000001" 
+    rpy="0.526415693374454 0 -3.14159265358979" />
+
+</robot> 

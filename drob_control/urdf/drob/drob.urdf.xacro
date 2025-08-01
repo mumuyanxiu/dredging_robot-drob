@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="car">
+
+  <!-- 包含主体文件 -->
+  <xacro:include filename="$(find drob_control)/urdf/drob/base.urdf.xacro" />
+  
+  <!-- 包含轮子文件 -->
+  <xacro:include filename="$(find drob_control)/urdf/drob/action/wheel.urdf.xacro" />
+  
+  <!-- 包含IMU组件文件 -->
+  <xacro:include filename="$(find drob_control)/urdf/drob/sensor/imu.urdf.xacro" />
+  
+  <!-- 包含雷达组件文件 -->
+  <xacro:include filename="$(find drob_control)/urdf/drob/sensor/lidar.urdf.xacro" />
+
+  <!-- 包含ROS2 Control配置 -->
+  <xacro:include filename="$(find drob_control)/urdf/drob/drob.control.xacro" />
+  
+  <!-- 调用ROS2 Control配置宏 -->
+  <xacro:drob_ros2_control />
+
+  <!-- 包含传感器插件 -->
+  <xacro:include filename="$(find drob_control)/urdf/drob/plugins/gazebo_sensor_plugin.xacro" />
+  
+  <!-- 调用传感器插件宏 -->
+  <xacro:gazebo_sensor_plugin />
+  
+  <!-- 添加雷达到小车顶部 -->
+  <xacro:lidar_xacro xyz="0 0 0.15" />
+
+</robot> 

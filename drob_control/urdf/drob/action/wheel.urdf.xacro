@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 汽车轮子 xacro 文件 -->
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- 四个轮子链接 -->
+  <link name="rfw">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.8" />
+      <inertia 
+        ixx="0.001"
+        ixy="0"
+        ixz="0"
+        iyy="0.001"
+        iyz="0"
+        izz="0.001" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.05" length="0.04" />
+      </geometry>
+      <material name="black" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.05" length="0.04" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="lfw">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.8" />
+      <inertia 
+        ixx="0.001"
+        ixy="0"
+        ixz="0"
+        iyy="0.001"
+        iyz="0"
+        izz="0.001" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.05" length="0.04" />
+      </geometry>
+      <material name="black" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.05" length="0.04" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="rbw">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.8" />
+      <inertia 
+        ixx="0.001"
+        ixy="0"
+        ixz="0"
+        iyy="0.001"
+        iyz="0"
+        izz="0.001" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.05" length="0.04" />
+      </geometry>
+      <material name="black" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.05" length="0.04" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="lbw">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.8" />
+      <inertia 
+        ixx="0.001"
+        ixy="0"
+        ixz="0"
+        iyy="0.001"
+        iyz="0"
+        izz="0.001" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.05" length="0.04" />
+      </geometry>
+      <material name="black" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.05" length="0.04" />
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- 四个轮子关节 -->
+  <joint name="rfj" type="continuous">
+    <origin xyz="-0.2 -0.15 -0.09" rpy="1.5708 0 0" />
+    <parent link="base_link" />
+    <child link="rfw" />
+    <axis xyz="0 0 -1" />
+  </joint>
+
+  <joint name="lfj" type="continuous">
+    <origin xyz="-0.2 0.15 -0.09" rpy="1.5708 0 0" />
+    <parent link="base_link" />
+    <child link="lfw" />
+    <axis xyz="0 0 -1" />
+  </joint>
+
+  <joint name="rbj" type="continuous">
+    <origin xyz="0.2 -0.15 -0.09" rpy="1.5708 0 0" />
+    <parent link="base_link" />
+    <child link="rbw" />
+    <axis xyz="0 0 -1" />
+  </joint>
+
+  <joint name="lbj" type="continuous">
+    <origin xyz="0.2 0.15 -0.09" rpy="1.5708 0 0" />
+    <parent link="base_link" />
+    <child link="lbw" />
+    <axis xyz="0 0 -1" />
+  </joint>
+
+  <!-- Gazebo标签 -->
+  <gazebo reference="rfw">
+    <material>Gazebo/Black</material>
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <kp>1000000.0</kp>
+    <kd>50.0</kd>
+    <selfCollide>false</selfCollide>
+    <minDepth>0.001</minDepth>
+  </gazebo>
+
+  <gazebo reference="lfw">
+    <material>Gazebo/Black</material>
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <kp>1000000.0</kp>
+    <kd>50.0</kd>
+    <selfCollide>false</selfCollide>
+    <minDepth>0.001</minDepth>
+  </gazebo>
+
+  <gazebo reference="rbw">
+    <material>Gazebo/Black</material>
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <kp>1000000.0</kp>
+    <kd>50.0</kd>
+    <selfCollide>false</selfCollide>
+    <minDepth>0.001</minDepth>
+  </gazebo>
+
+  <gazebo reference="lbw">
+    <material>Gazebo/Black</material>
+    <mu1>0.8</mu1>
+    <mu2>0.8</mu2>
+    <kp>1000000.0</kp>
+    <kd>50.0</kd>
+    <selfCollide>false</selfCollide>
+    <minDepth>0.001</minDepth>
+  </gazebo>
+
+</robot> 

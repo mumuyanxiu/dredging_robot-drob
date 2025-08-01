@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot
+  name="car">
+  <!--rob body-->
+  <link
+    name="base_link">
+    <!--rob apperance-->
+    <inertial>
+      <origin
+        xyz="0.15 0.125782760442477 0.0905056224994855"
+        rpy="0 0 0" />
+      <mass
+        value="33.5751223260577" />
+      <inertia
+        ixx="0.448373143813742"
+        ixy="2.22672766169457E-17"
+        ixz="6.55095281406476E-18"    
+        iyy="0.342599743069878"
+        iyz="0.0053567955300172"
+        izz="0.580163577047672" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://drob_control/meshes/base_link.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://drob_control/meshes/base_link.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <link
+    name="rbw">
+    <inertial>
+      <origin
+        xyz="0.0369811320754719 -7.7715611723761E-16 -1.13797860024079E-15"
+        rpy="0 0 0" />
+      <mass
+        value="0.166504410640259" />
+      <inertia
+        ixx="9.49153680465817E-05"
+        ixy="-4.20723156859578E-21"
+        ixz="3.32636648653541E-22"
+        iyy="8.82470165646165E-05"
+        iyz="0"
+        izz="8.82470165646165E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://drob_control/meshes/rbw.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://drob_control/meshes/rbw.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rbj"
+    type="continuous">
+    <origin
+      xyz="0 0.33 0.0299999999999998"
+      rpy="0.526415693374454 0 3.14159265358979" />
+    <parent
+      link="base_link" />
+    <child
+      link="rbw" />
+    <axis
+      xyz="1 0 0" />
+  </joint>
+  <link
+    name="lbw">
+    <inertial>
+      <origin
+        xyz="0.0569811320754717 3.88578058618805E-16 8.88178419700125E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.166504410640259" />
+      <inertia
+        ixx="9.49153680465816E-05"
+        ixy="2.58068496699858E-22"
+        ixz="-2.58381125403857E-21"
+        iyy="8.82470165646164E-05"
+        iyz="0"
+        izz="8.82470165646164E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://drob_control/meshes/lbw.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://drob_control/meshes/lbw.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="lbj"
+    type="continuous">
+    <origin
+      xyz="0.28 0.33 0.0299999999999991"
+      rpy="-2.61517696021534 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="lbw" />
+    <axis
+      xyz="1 0 0" />
+  </joint>
+  <link
+    name="lfw">
+    <inertial>
+      <origin
+        xyz="0.0569811320754717 2.77555756156289E-17 2.18575157973078E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.166504410640259" />
+      <inertia
+        ixx="9.49153680465816E-05"
+        ixy="-2.41979405489641E-21"
+        ixz="6.84614603779933E-21"
+        iyy="8.82470165646164E-05"
+        iyz="-6.7762635780344E-21"
+        izz="8.82470165646164E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://drob_control/meshes/lfw.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://drob_control/meshes/lfw.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="lfj"
+    type="continuous">
+    <origin
+      xyz="0.28 0.0700000000000002 0.0299999999999993"
+      rpy="-2.61517696021534 0 0" />
+    <parent
+      link="base_link" />
+    <child
+      link="lfw" />
+    <axis
+      xyz="1 0 0" />
+  </joint>
+  <link
+    name="rfw">
+    <inertial>
+      <origin
+        xyz="0.036981 -2.2898E-16 -1.6653E-16"
+        rpy="0 0 0" />
+      <mass
+        value="0.1665" />
+      <inertia
+        ixx="9.4915E-05"
+        ixy="-2.9512E-21"
+        ixz="-7.1592E-21"
+        iyy="8.8247E-05"
+        iyz="-3.3881E-21"
+        izz="8.8247E-05" />
+    </inertial>
+    <visual>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://drob_control/meshes/rfw.STL" />
+      </geometry>
+      <material
+        name="">
+        <color
+          rgba="1 1 1 1" />
+      </material>
+    </visual>
+    <collision>
+      <origin
+        xyz="0 0 0"
+        rpy="0 0 0" />
+      <geometry>
+        <mesh
+          filename="package://drob_control/meshes/rfw.STL" />
+      </geometry>
+    </collision>
+  </link>
+  <joint
+    name="rfj"
+    type="continuous">
+    <origin
+      xyz="0 0.0700000000000001 0.0300000000000001"
+      rpy="0.526415693374454 0 -3.14159265358979" />
+    <parent
+      link="base_link" />
+    <child
+      link="rfw" />
+    <axis
+      xyz="1 0 0" />
+  </joint>
+</robot>

@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 基于几何体的机器人URDF -->
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="car">
+
+  <!-- 定义材料 -->
+  <material name="white">
+    <color rgba="1 1 1 1" />
+  </material>
+
+  <material name="blue">
+    <color rgba="0 0 1 1" />
+  </material>
+
+  <material name="black">
+    <color rgba="0 0 0 1" />
+  </material>
+
+  <!-- base_footprint 虚拟链接 -->
+  <link name="base_footprint" />
+
+  <!-- base_footprint 到 base_link 的固定关节 -->
+  <joint name="base_footprint_joint" type="fixed">
+    <origin xyz="0 0 0.09" rpy="0 0 0" />
+    <parent link="base_footprint" />
+    <child link="base_link" />
+  </joint>
+
+  <!-- 主体链接 -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0.15 0.125782760442477 0.0905056224994855" rpy="0 0 0" />
+      <mass value="33.5751223260577" />
+      <inertia
+        ixx="0.448373143813742"
+        ixy="2.22672766169457E-17"
+        ixz="6.55095281406476E-18"    
+        iyy="0.342599743069878"
+        iyz="0.0053567955300172"
+        izz="0.580163577047672" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.3 0.4 0.18" />
+      </geometry>
+      <material name="blue" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.3 0.4 0.18" />
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- 四个轮子链接 -->
+  <link name="rbw">
+    <inertial>
+      <origin xyz="0.0369811320754719 -7.7715611723761E-16 -1.13797860024079E-15" rpy="0 0 0" />
+      <mass value="0.166504410640259" />
+      <inertia 
+        ixx="9.49153680465817E-05"
+        ixy="-4.20723156859578E-21"
+        ixz="3.32636648653541E-22"
+        iyy="8.82470165646165E-05"
+        iyz="0"
+        izz="8.82470165646165E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.03" length="0.02" />
+      </geometry>
+      <material name="black" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.03" length="0.02" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="lbw">
+    <inertial>
+      <origin xyz="0.0369811320754719 -7.7715611723761E-16 -1.13797860024079E-15" rpy="0 0 0" />
+      <mass value="0.166504410640259" />
+      <inertia 
+        ixx="9.49153680465817E-05"
+        ixy="-4.20723156859578E-21"
+        ixz="3.32636648653541E-22"
+        iyy="8.82470165646165E-05"
+        iyz="0"
+        izz="8.82470165646165E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.03" length="0.02" />
+      </geometry>
+      <material name="black" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.03" length="0.02" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="lfw">
+    <inertial>
+      <origin xyz="0.0369811320754719 -7.7715611723761E-16 -1.13797860024079E-15" rpy="0 0 0" />
+      <mass value="0.166504410640259" />
+      <inertia 
+        ixx="9.49153680465817E-05"
+        ixy="-4.20723156859578E-21"
+        ixz="3.32636648653541E-22"
+        iyy="8.82470165646165E-05"
+        iyz="0"
+        izz="8.82470165646165E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.03" length="0.02" />
+      </geometry>
+      <material name="black" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.03" length="0.02" />
+      </geometry>
+    </collision>
+  </link>
+
+  <link name="rfw">
+    <inertial>
+      <origin xyz="0.0369811320754719 -7.7715611723761E-16 -1.13797860024079E-15" rpy="0 0 0" />
+      <mass value="0.166504410640259" />
+      <inertia 
+        ixx="9.49153680465817E-05"
+        ixy="-4.20723156859578E-21"
+        ixz="3.32636648653541E-22"
+        iyy="8.82470165646165E-05"
+        iyz="0"
+        izz="8.82470165646165E-05" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.03" length="0.02" />
+      </geometry>
+      <material name="black" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <cylinder radius="0.03" length="0.02" />
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- 轮子关节 -->
+  <joint name="rbj" type="continuous">
+    <origin xyz="0 0.33 0.0299999999999998" rpy="0.526415693374454 0 3.14159265358979" />
+    <parent link="base_link" />
+    <child link="rbw" />
+    <axis xyz="1 0 0" />
+  </joint>
+
+  <joint name="lbj" type="continuous">
+    <origin xyz="0.28 0.33 0.0299999999999991" rpy="-2.61517696021534 0 0" />
+    <parent link="base_link" />
+    <child link="lbw" />
+    <axis xyz="1 0 0" />
+  </joint>
+
+  <joint name="lfj" type="continuous">
+    <origin xyz="0.28 0.0700000000000002 0.0299999999999993" rpy="-2.61517696021534 0 0" />
+    <parent link="base_link" />
+    <child link="lfw" />
+    <axis xyz="1 0 0" />
+  </joint>
+
+  <joint name="rfj" type="continuous">
+    <origin xyz="0 0.0700000000000001 0.0300000000000001" rpy="0.526415693374454 0 -3.14159265358979" />
+    <parent link="base_link" />
+    <child link="rfw" />
+    <axis xyz="1 0 0" />
+  </joint>
+
+  <!-- IMU链接 -->
+  <link name="imu_link">
+    <inertial>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <mass value="0.01" />
+      <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.01 0.01" />
+      </geometry>
+      <material name="white" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.01 0.01 0.01" />
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- IMU关节 -->
+  <joint name="imu_joint" type="fixed">
+    <origin xyz="0.15 0.125782760442477 0.0905056224994855" rpy="0 0 0" />
+    <parent link="base_link" />
+    <child link="imu_link" />
+  </joint>
+
+  <!-- Gazebo标签 -->
+  <gazebo reference="base_link">
+    <material>Gazebo/Blue</material>
+    <mu1>0.2</mu1>
+    <mu2>0.2</mu2>
+  </gazebo>
+
+  <gazebo reference="rbw">
+    <material>Gazebo/Black</material>
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+    <selfCollide>false</selfCollide>
+  </gazebo>
+
+  <gazebo reference="lbw">
+    <material>Gazebo/Black</material>
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+    <selfCollide>false</selfCollide>
+  </gazebo>
+
+  <gazebo reference="lfw">
+    <material>Gazebo/Black</material>
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+    <selfCollide>false</selfCollide>
+  </gazebo>
+
+  <gazebo reference="rfw">
+    <material>Gazebo/Black</material>
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+    <selfCollide>false</selfCollide>
+  </gazebo>
+
+</robot> 

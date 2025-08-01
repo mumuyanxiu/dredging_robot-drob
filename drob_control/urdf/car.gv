@@ -1,0 +1,17 @@
+digraph G {
+node [shape=box];
+"base_link" [label="base_link"];
+"lbw" [label="lbw"];
+"lfw" [label="lfw"];
+"rbw" [label="rbw"];
+"rfw" [label="rfw"];
+node [shape=ellipse, color=blue, fontcolor=blue];
+"base_link" -> "lbj" [label="xyz: 0.28 0.33 0.03 \nrpy: -2.61518 0 0"]
+"lbj" -> "lbw"
+"base_link" -> "lfj" [label="xyz: 0.28 0.07 0.03 \nrpy: -2.61518 0 0"]
+"lfj" -> "lfw"
+"base_link" -> "rbj" [label="xyz: 0 0.33 0.03 \nrpy: 0.526416 -0 3.14159"]
+"rbj" -> "rbw"
+"base_link" -> "rfj" [label="xyz: 0 0.07 0.03 \nrpy: 0.526416 -0 -3.14159"]
+"rfj" -> "rfw"
+}

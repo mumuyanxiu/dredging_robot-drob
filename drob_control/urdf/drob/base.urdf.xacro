@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 汽车主体 xacro 文件 -->
+
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- 定义材料 -->
+  <material name="white">
+    <color rgba="1 1 1 1" />
+  </material>
+
+  <material name="blue">
+    <color rgba="0 0 1 1" />
+  </material>
+
+  <material name="black">
+    <color rgba="0 0 0 1" />
+  </material>
+
+  <!-- base_footprint 虚拟链接 - 用于定位机器人在地面上的位置 -->
+  <link name="base_footprint" />
+
+  <!-- base_footprint 到 base_link 的固定关节 -->
+  <joint name="base_footprint_joint" type="fixed">
+    <origin xyz="0 0 0.12" rpy="0 0 0" />
+    <parent link="base_footprint" />
+    <child link="base_link" />
+  </joint>
+
+
+  <!-- 主体链接 -->
+  <link name="base_link">
+    <inertial>
+      <origin xyz="0 0 -0.09" rpy="0 0 0" />
+      <mass value="5.0" />
+      <inertia
+        ixx="0.2"
+        ixy="0"
+        ixz="0"    
+        iyy="0.15"
+        iyz="0"
+        izz="0.25" />
+    </inertial>
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.4 0.3 0.18" />
+      </geometry>
+      <material name="blue" />
+    </visual>
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0" />
+      <geometry>
+        <box size="0.4 0.3 0.18" />
+      </geometry>
+    </collision>
+  </link>
+
+  <!-- Gazebo 标签 -->
+  <gazebo reference="base_link">
+    <material>Gazebo/Blue</material>
+    <mu1>0.3</mu1>
+    <mu2>0.3</mu2>
+    <kp>1000000.0</kp>
+    <kd>100.0</kd>
+  </gazebo>
+
+</robot> 
