@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.8)
-project(motion_control_system)
+project(nav2_custom_planner)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
@@ -8,6 +8,7 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(pluginlib REQUIRED)
+find_package(nav2_core REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -21,25 +22,26 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
+
+# 包含头文件目录
 include_directories(include)
-# ================添加库文件=====================
-add_library(spin_motion_controller SHARED src/spin_motion_controller.cpp)
-ament_target_dependencies(spin_motion_controller  pluginlib )
-
-add_executable(test_plugin src/test_plugin.cpp)
-ament_target_dependencies(test_plugin pluginlib)
-install(TARGETS test_plugin
-    DESTINATION lib/${PROJECT_NAME}
-)
-
-install(TARGETS spin_motion_controller
+# 定义库名称
+set(library_name ${PROJECT_NAME}_plugin)
+# 创建共享库
+add_library(${library_name} SHARED  src/nav2_custom_planner.cpp)
+# 指定库的依赖关系
+ament_target_dependencies(${library_name} nav2_core pluginlib)
+# 安装库文件到指定目录
+install(TARGETS ${library_name}
   ARCHIVE DESTINATION lib
   LIBRARY DESTINATION lib
-  RUNTIME DESTINATION bin
+  RUNTIME DESTINATION lib/${PROJECT_NAME}
 )
+# 安装头文件到指定目录
 install(DIRECTORY include/
-  DESTINATION include/
-)
+  DESTINATION include/ )
 # 导出插件描述文件
-pluginlib_export_plugin_description_file(motion_control_system spin_motion_plugins.xml)
+pluginlib_export_plugin_description_file(nav2_core custom_planner_plugin.xml)
+
+
 ament_package()
