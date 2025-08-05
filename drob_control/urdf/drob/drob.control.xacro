@@ -71,10 +71,29 @@
             <plugin filename="libgazebo_ros2_control.so" name="gazebo_ros2_control">
                 <parameters>$(find drob_control)/config/controllers.yaml</parameters>
                 <ros>
-                    <remapping>/drob_diff_drive_controller/cmd_vel_unstamped:=/cmd_vel</remapping>
-                    <remapping>/drob_diff_drive_controller/odom:=/odom</remapping>
+                    <remapping>/drob_left_front_velocity_controller/commands:=/drob_left_front_velocity_controller/commands</remapping>
+                    <remapping>/drob_right_front_velocity_controller/commands:=/drob_right_front_velocity_controller/commands</remapping>
+                    <remapping>/drob_left_back_velocity_controller/commands:=/drob_left_back_velocity_controller/commands</remapping>
+                    <remapping>/drob_right_back_velocity_controller/commands:=/drob_right_back_velocity_controller/commands</remapping>
                 </ros>
             </plugin>
+        </gazebo>
+        
+        <!-- 为每个轮子关节添加Gazebo插件 -->
+        <gazebo reference="lfj">
+            <provideFeedback>true</provideFeedback>
+        </gazebo>
+        
+        <gazebo reference="lbj">
+            <provideFeedback>true</provideFeedback>
+        </gazebo>
+        
+        <gazebo reference="rfj">
+            <provideFeedback>true</provideFeedback>
+        </gazebo>
+        
+        <gazebo reference="rbj">
+            <provideFeedback>true</provideFeedback>
         </gazebo>
     </xacro:macro>
 </robot>

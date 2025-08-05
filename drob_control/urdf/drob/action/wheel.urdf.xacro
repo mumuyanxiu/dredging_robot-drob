@@ -6,14 +6,14 @@
   <link name="rfw">
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0" />
-      <mass value="0.8" />
+      <mass value="2.0" />
       <inertia 
-        ixx="0.001"
+        ixx="0.01"
         ixy="0"
         ixz="0"
-        iyy="0.001"
+        iyy="0.01"
         iyz="0"
-        izz="0.001" />
+        izz="0.01" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -33,14 +33,14 @@
   <link name="lfw">
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0" />
-      <mass value="0.8" />
+      <mass value="2.0" />
       <inertia 
-        ixx="0.001"
+        ixx="0.01"
         ixy="0"
         ixz="0"
-        iyy="0.001"
+        iyy="0.01"
         iyz="0"
-        izz="0.001" />
+        izz="0.01" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -60,14 +60,14 @@
   <link name="rbw">
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0" />
-      <mass value="0.8" />
+      <mass value="2.0" />
       <inertia 
-        ixx="0.001"
+        ixx="0.01"
         ixy="0"
         ixz="0"
-        iyy="0.001"
+        iyy="0.01"
         iyz="0"
-        izz="0.001" />
+        izz="0.01" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -87,14 +87,14 @@
   <link name="lbw">
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0" />
-      <mass value="0.8" />
+      <mass value="2.0" />
       <inertia 
-        ixx="0.001"
+        ixx="0.01"
         ixy="0"
         ixz="0"
-        iyy="0.001"
+        iyy="0.01"
         iyz="0"
-        izz="0.001" />
+        izz="0.01" />
     </inertial>
     <visual>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -117,6 +117,7 @@
     <parent link="base_link" />
     <child link="rfw" />
     <axis xyz="0 0 -1" />
+    <dynamics damping="0.1" friction="0.1" />
   </joint>
 
   <joint name="lfj" type="continuous">
@@ -124,6 +125,7 @@
     <parent link="base_link" />
     <child link="lfw" />
     <axis xyz="0 0 -1" />
+    <dynamics damping="0.1" friction="0.1" />
   </joint>
 
   <joint name="rbj" type="continuous">
@@ -131,6 +133,7 @@
     <parent link="base_link" />
     <child link="rbw" />
     <axis xyz="0 0 -1" />
+    <dynamics damping="0.1" friction="0.1" />
   </joint>
 
   <joint name="lbj" type="continuous">
@@ -138,47 +141,108 @@
     <parent link="base_link" />
     <child link="lbw" />
     <axis xyz="0 0 -1" />
+    <dynamics damping="0.1" friction="0.1" />
   </joint>
 
   <!-- Gazebo标签 -->
   <gazebo reference="rfw">
     <material>Gazebo/Black</material>
-    <mu1>0.8</mu1>
-    <mu2>0.8</mu2>
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
     <kp>1000000.0</kp>
-    <kd>50.0</kd>
+    <kd>10.0</kd>
     <selfCollide>false</selfCollide>
     <minDepth>0.001</minDepth>
+    <maxVel>20.0</maxVel>
+    <inertia>
+      <ixx>0.01</ixx>
+      <ixy>0</ixy>
+      <ixz>0</ixz>
+      <iyy>0.01</iyy>
+      <iyz>0</iyz>
+      <izz>0.01</izz>
+    </inertia>
+    <gravity>true</gravity>
   </gazebo>
 
   <gazebo reference="lfw">
     <material>Gazebo/Black</material>
-    <mu1>0.8</mu1>
-    <mu2>0.8</mu2>
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
     <kp>1000000.0</kp>
-    <kd>50.0</kd>
+    <kd>10.0</kd>
     <selfCollide>false</selfCollide>
     <minDepth>0.001</minDepth>
+    <maxVel>20.0</maxVel>
+    <inertia>
+      <ixx>0.01</ixx>
+      <ixy>0</ixy>
+      <ixz>0</ixz>
+      <iyy>0.01</iyy>
+      <iyz>0</iyz>
+      <izz>0.01</izz>
+    </inertia>
+    <gravity>true</gravity>
   </gazebo>
 
   <gazebo reference="rbw">
     <material>Gazebo/Black</material>
-    <mu1>0.8</mu1>
-    <mu2>0.8</mu2>
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
     <kp>1000000.0</kp>
-    <kd>50.0</kd>
+    <kd>10.0</kd>
     <selfCollide>false</selfCollide>
     <minDepth>0.001</minDepth>
+    <maxVel>20.0</maxVel>
+    <inertia>
+      <ixx>0.01</ixx>
+      <ixy>0</ixy>
+      <ixz>0</ixz>
+      <iyy>0.01</iyy>
+      <iyz>0</iyz>
+      <izz>0.01</izz>
+    </inertia>
+    <gravity>true</gravity>
   </gazebo>
 
   <gazebo reference="lbw">
     <material>Gazebo/Black</material>
-    <mu1>0.8</mu1>
-    <mu2>0.8</mu2>
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
     <kp>1000000.0</kp>
-    <kd>50.0</kd>
+    <kd>10.0</kd>
     <selfCollide>false</selfCollide>
     <minDepth>0.001</minDepth>
+    <maxVel>20.0</maxVel>
+    <inertia>
+      <ixx>0.01</ixx>
+      <ixy>0</ixy>
+      <ixz>0</ixz>
+      <iyy>0.01</iyy>
+      <iyz>0</iyz>
+      <izz>0.01</izz>
+    </inertia>
+    <gravity>true</gravity>
   </gazebo>
 
+  <!-- 为轮子关节添加Gazebo插件 -->
+  <gazebo reference="rfj">
+    <provideFeedback>true</provideFeedback>
+    <implicitSpringDamper>0</implicitSpringDamper>
+  </gazebo>
+
+  <gazebo reference="lfj">
+    <provideFeedback>true</provideFeedback>
+    <implicitSpringDamper>0</implicitSpringDamper>
+  </gazebo>
+
+  <gazebo reference="rbj">
+    <provideFeedback>true</provideFeedback>
+    <implicitSpringDamper>0</implicitSpringDamper>
+  </gazebo>
+
+  <gazebo reference="lbj">
+    <provideFeedback>true</provideFeedback>
+    <implicitSpringDamper>0</implicitSpringDamper>
+  </gazebo>
 </robot> 

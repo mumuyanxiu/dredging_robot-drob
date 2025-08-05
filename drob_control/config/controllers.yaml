@@ -7,73 +7,167 @@ controller_manager:
       type: joint_state_broadcaster/JointStateBroadcaster
       use_sim_time: true
     
-    drob_effort_controller:
-      type: effort_controllers/JointGroupEffortController
+    # 四轮独立速度控制器 - 使用JointGroupVelocityController
+    drob_left_front_velocity_controller:
+      type: velocity_controllers/JointGroupVelocityController
+      use_sim_time: true
     
-    drob_diff_drive_controller:
-      type: diff_drive_controller/DiffDriveController
+    drob_right_front_velocity_controller:
+      type: velocity_controllers/JointGroupVelocityController
+      use_sim_time: true
+    
+    drob_left_back_velocity_controller:
+      type: velocity_controllers/JointGroupVelocityController
+      use_sim_time: true
+    
+    drob_right_back_velocity_controller:
+      type: velocity_controllers/JointGroupVelocityController
+      use_sim_time: true
+    
 
-drob_effort_controller:
+
+# 左前轮速度控制器
+drob_left_front_velocity_controller:
   ros__parameters:
     joints:
       - lfj
-      - rfj
-      - lbj
-      - rbj
     command_interfaces:
-      - effort
+      - velocity
     state_interfaces:
       - position
       - velocity
-      - effort
+    gains:
+      lfj:
+        p: 100.0
+        i: 1.0
+        d: 10.0
+        i_clamp: 1.0
+        antiwindup: true
 
-drob_diff_drive_controller:
+# 右前轮速度控制器
+drob_right_front_velocity_controller:
   ros__parameters:
-    left_wheel_names: ["lbj", "lfj"]
-    right_wheel_names: ["rbj", "rfj"]
+    joints:
+      - rfj
+    command_interfaces:
+      - velocity
+    state_interfaces:
+      - position
+      - velocity
+    gains:
+      rfj:
+        p: 100.0
+        i: 1.0
+        d: 10.0
+        i_clamp: 1.0
+        antiwindup: true
 
-    wheel_separation: 0.3
-    wheel_radius: 0.05
+# 左后轮速度控制器
+drob_left_back_velocity_controller:
+  ros__parameters:
+    joints:
+      - lbj
+    command_interfaces:
+      - velocity
+    state_interfaces:
+      - position
+      - velocity
+    gains:
+      lbj:
+        p: 100.0
+        i: 1.0
+        d: 10.0
+        i_clamp: 1.0
+        antiwindup: true
 
-    wheel_separation_multiplier: 1.0
-    left_wheel_radius_multiplier: 1.0
-    right_wheel_radius_multiplier: 1.0
+# 右后轮速度控制器
+drob_right_back_velocity_controller:
+  ros__parameters:
+    joints:
+      - rbj
+    command_interfaces:
+      - velocity
+    state_interfaces:
+      - position
+      - velocity
+    gains:
+      rbj:
+        p: 100.0
+        i: 1.0
+        d: 10.0
+        i_clamp: 1.0
+        antiwindup: true
 
-    publish_rate: 50.0
-    odom_frame_id: odom
-    base_frame_id: base_footprint
-    pose_covariance_diagonal: [0.001, 0.001, 0.0, 0.0, 0.0, 0.01]
-    twist_covariance_diagonal: [0.001, 0.0, 0.0, 0.0, 0.0, 0.01]
 
-    open_loop: true
-    enable_odom_tf: true
 
-    cmd_vel_timeout: 0.5
-    use_stamped_vel: false
-    
-    linear.x.has_velocity_limits: true
-    linear.x.max_velocity: 2.0
-    linear.x.min_velocity: -2.0
-    
-    angular.z.has_velocity_limits: true
-    angular.z.max_velocity: 3.0
-    angular.z.min_velocity: -3.0
-    
-    linear.x.pid.p: 2.0
-    linear.x.pid.i: 0.05
-    linear.x.pid.d: 0.02
-    linear.x.pid.i_clamp: 1.0
-    
-    angular.z.pid.p: 4.0
-    angular.z.pid.i: 0.15
-    angular.z.pid.d: 0.08
-    angular.z.pid.i_clamp: 2.0
-    
-    linear.x.pid.antiwindup: true
-    angular.z.pid.antiwindup: true
-    
-    linear.x.min_velocity_threshold: 0.01
-    angular.z.min_velocity_threshold: 0.02
-    
-    angular.z.pid.min_velocity: 0.05
-    angular.z.pid.max_velocity: 3.0 
+# 左前轮位置控制器
+drob_left_front_position_controller:
+  ros__parameters:
+    joints:
+      - lfj
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    gains:
+      lfj:
+        p: 100.0
+        i: 1.0
+        d: 10.0
+        i_clamp: 1.0
+        antiwindup: true
+
+# 右前轮位置控制器
+drob_right_front_position_controller:
+  ros__parameters:
+    joints:
+      - rfj
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    gains:
+      rfj:
+        p: 100.0
+        i: 1.0
+        d: 10.0
+        i_clamp: 1.0
+        antiwindup: true
+
+# 左后轮位置控制器
+drob_left_back_position_controller:
+  ros__parameters:
+    joints:
+      - lbj
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    gains:
+      lbj:
+        p: 100.0
+        i: 1.0
+        d: 10.0
+        i_clamp: 1.0
+        antiwindup: true
+
+# 右后轮位置控制器
+drob_right_back_position_controller:
+  ros__parameters:
+    joints:
+      - rbj
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+    gains:
+      rbj:
+        p: 100.0
+        i: 1.0
+        d: 10.0
+        i_clamp: 1.0
+        antiwindup: true 

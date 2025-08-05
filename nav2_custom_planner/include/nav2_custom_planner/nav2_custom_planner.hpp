@@ -47,6 +47,21 @@ private:
   std::string global_frame_, name_;
   // 插值分辨率
   double interpolation_resolution_;
+  // 覆盖分辨率
+  double coverage_resolution_;
+  // 起始角落
+  std::string start_corner_;
+  
+  // 私有方法
+  void generateSnakePath(
+      const geometry_msgs::msg::PoseStamped &start_corner,
+      const geometry_msgs::msg::PoseStamped &end_corner,
+      std::vector<geometry_msgs::msg::PoseStamped> &path_points);
+  
+  void interpolatePathSegment(
+      const geometry_msgs::msg::PoseStamped &start,
+      const geometry_msgs::msg::PoseStamped &end,
+      nav_msgs::msg::Path &global_path);
 };
 
 } // namespace nav2_custom_planner
