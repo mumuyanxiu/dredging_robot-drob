@@ -65,29 +65,15 @@ private:
         double linear_x = std::clamp(msg->linear.x, -max_linear_velocity_, max_linear_velocity_);
         double angular_z = std::clamp(msg->angular.z, -max_angular_velocity_, max_angular_velocity_);
         
-        // 计算四个轮子的速度
+        // 使用差速转向运动学
+        // 对于四轮机器人，左右轮速度差产生转向
         double left_velocity, right_velocity;
         
-        if (std::abs(angular_z) < 0.001) {
-            // 直线行驶
-            left_velocity = linear_x;
-            right_velocity = linear_x;
-        } else {
-            // 转向行驶
-            if (std::abs(linear_x) < 0.001) {
-                // 原地转向
-                left_velocity = -angular_z * wheel_separation_ / 2.0;
-                right_velocity = angular_z * wheel_separation_ / 2.0;
-            } else {
-                // 前进转向
-                double turning_radius = linear_x / angular_z;
-                double left_radius = turning_radius - wheel_separation_ / 2.0;
-                double right_radius = turning_radius + wheel_separation_ / 2.0;
-                
-                left_velocity = left_radius * angular_z;
-                right_velocity = right_radius * angular_z;
-            }
-        }
+        // 差速转向公式：
+        // v_left = v_linear - (v_angular * wheel_separation) / 2
+        // v_right = v_linear + (v_angular * wheel_separation) / 2
+        left_velocity = linear_x - (angular_z * wheel_separation_) / 2.0;
+        right_velocity = linear_x + (angular_z * wheel_separation_) / 2.0;
         
         // 转换为轮子角速度 (rad/s)
         double left_angular_velocity = left_velocity / wheel_radius_;
