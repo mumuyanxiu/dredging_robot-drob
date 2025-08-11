@@ -16,8 +16,8 @@ def generate_launch_description():
     # 创建 Launch 配置
     use_sim_time = launch.substitutions.LaunchConfiguration(
         'use_sim_time', default='true')
-    map_yaml_path = launch.substitutions.LaunchConfiguration(
-        'map', default=os.path.join(drob_navigation2_dir, 'maps', 'room.yaml'))
+    slam = launch.substitutions.LaunchConfiguration(
+        'slam', default='true')  # 启用SLAM在线建图
     nav2_param_path = launch.substitutions.LaunchConfiguration(
         'params_file', default=os.path.join(drob_navigation2_dir, 'config', 'nav2_params.yaml'))
 
@@ -25,19 +25,19 @@ def generate_launch_description():
         # 声明新的 Launch 参数
         launch.actions.DeclareLaunchArgument('use_sim_time', default_value=use_sim_time,
                                              description='Use simulation (Gazebo) clock if true'),
-        launch.actions.DeclareLaunchArgument('map', default_value=map_yaml_path,
-                                             description='Full path to map file to load'),
         launch.actions.DeclareLaunchArgument('params_file', default_value=nav2_param_path,
                                              description='Full path to param file to load'),
+        launch.actions.DeclareLaunchArgument('slam', default_value=slam,
+                                             description='Whether to run SLAM (slam_toolbox)'),
 
         launch.actions.IncludeLaunchDescription(
             PythonLaunchDescriptionSource(
                 [nav2_bringup_dir, '/launch', '/bringup_launch.py']),
             # 使用 Launch 参数替换原有参数
             launch_arguments={
-                'map': map_yaml_path,
                 'use_sim_time': use_sim_time,
-                'params_file': nav2_param_path}.items(),
+                'params_file': nav2_param_path,
+                'slam': slam}.items(),
         ),
         launch_ros.actions.Node(
             package='rviz2',
