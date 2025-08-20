@@ -18,6 +18,9 @@ public:
         left_back_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/drob_left_back_velocity_controller/commands", 10);
         right_back_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/drob_right_back_velocity_controller/commands", 10);
         
+        // 新增：发布所有轮子速度数组，供Modbus桥接器使用
+        wheel_speeds_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/wheel_speeds", 10);
+        
         // 创建odom发布者
         odom_pub_ = this->create_publisher<nav_msgs::msg::Odometry>("/odom", 10);
         
@@ -54,6 +57,9 @@ public:
         theta_ = 0.0;
         last_time_ = this->now();
         
+        // 初始化轮子速度存储
+        wheel_speeds_ = {0.0, 0.0, 0.0, 0.0};  // [左前, 右前, 左后, 右后]
+        
         RCLCPP_INFO(this->get_logger(), "四轮控制器已启动");
         RCLCPP_INFO(this->get_logger(), "轮距: %.3f m, 轮半径: %.3f m", wheel_separation_, wheel_radius_);
     }
@@ -79,6 +85,12 @@ private:
         double left_angular_velocity = left_velocity / wheel_radius_;
         double right_angular_velocity = right_velocity / wheel_radius_;
         
+        // 更新轮子速度存储
+        wheel_speeds_[0] = left_angular_velocity;   // 左前
+        wheel_speeds_[1] = right_angular_velocity;  // 右前
+        wheel_speeds_[2] = left_angular_velocity;   // 左后
+        wheel_speeds_[3] = right_angular_velocity;  // 右后
+        
         // 发布轮子速度命令 - 使用Float64MultiArray
         auto left_front_msg = std_msgs::msg::Float64MultiArray();
         auto right_front_msg = std_msgs::msg::Float64MultiArray();
@@ -95,6 +107,11 @@ private:
         right_front_pub_->publish(right_front_msg);
         left_back_pub_->publish(left_back_msg);
         right_back_pub_->publish(right_back_msg);
+        
+        // 发布所有轮子速度数组
+        auto wheel_speeds_msg = std_msgs::msg::Float64MultiArray();
+        wheel_speeds_msg.data = wheel_speeds_;
+        wheel_speeds_pub_->publish(wheel_speeds_msg);
         
         // 调试信息
         RCLCPP_INFO(this->get_logger(), 
@@ -191,6 +208,7 @@ private:
     rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr right_front_pub_;
     rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr left_back_pub_;
     rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr right_back_pub_;
+    rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr wheel_speeds_pub_;  // 新增
     rclcpp::Publisher<nav_msgs::msg::Odometry>::SharedPtr odom_pub_;
     
     // 订阅者
@@ -211,6 +229,9 @@ private:
     // 里程计变量
     double x_, y_, theta_;
     rclcpp::Time last_time_;
+    
+    // 新增：轮子速度存储
+    std::vector<double> wheel_speeds_;
 };
 
 int main(int argc, char** argv)

@@ -1,0 +1,21 @@
+wheel_speed_modbus_bridge:
+  ros__parameters:
+    # Modbus连接参数
+    modbus_ip: "192.168.0.1"         # PLC的IP地址，修正为实际IP
+    modbus_port: 502                 # Modbus端口，通常为502
+    
+    # 话题配置
+    wheel_speed_topic: "/wheel_speeds"  # 订阅的轮子速度话题
+    
+    # Modbus寄存器配置
+    modbus_start_address: 0          # 起始地址，尝试零基址
+    modbus_unit_id: 1                # 设备ID，匹配PLC配置
+    
+    # 轮子顺序说明：
+    # 地址0: 左前轮速度 ✅ 扫描器确认可写
+    # 地址1: 右前轮速度 ✅ 扫描器确认可写
+    # 地址2: 左后轮速度 ✅ 扫描器确认可写
+    # 地址3: 右后轮速度 ✅ 扫描器确认可写
+    
+    # 可选：发送频率控制
+    send_frequency: 10.0             # 发送频率(Hz)，默认10Hz
