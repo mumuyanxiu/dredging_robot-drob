@@ -6,7 +6,7 @@
                 <plugin>gazebo_ros2_control/GazeboSystem</plugin>
             </hardware>
             
-            <!-- 左前轮 -->
+            <!-- 左前轮 - 恢复完整控制接口 -->
             <joint name="lfj">
                 <command_interface name="velocity">
                     <param name="min">-15</param>
@@ -36,7 +36,7 @@
                 <state_interface name="effort" />
             </joint>
             
-            <!-- 右前轮 -->
+            <!-- 右前轮 - 恢复完整控制接口 -->
             <joint name="rfj">
                 <command_interface name="velocity">
                     <param name="min">-15</param>
@@ -79,7 +79,7 @@
             </plugin>
         </gazebo>
         
-        <!-- 为每个轮子关节添加Gazebo插件 -->
+        <!-- 为所有轮子关节添加Gazebo插件 -->
         <gazebo reference="lfj">
             <provideFeedback>true</provideFeedback>
         </gazebo>

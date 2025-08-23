@@ -12,7 +12,7 @@ class FourWheelController : public rclcpp::Node
 public:
     FourWheelController() : Node("four_wheel_controller")
     {
-        // 创建发布者 - 使用Float64MultiArray
+        // 创建发布者 - 只控制后轮
         left_front_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/drob_left_front_velocity_controller/commands", 10);
         right_front_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/drob_right_front_velocity_controller/commands", 10);
         left_back_pub_ = this->create_publisher<std_msgs::msg::Float64MultiArray>("/drob_left_back_velocity_controller/commands", 10);
@@ -60,6 +60,9 @@ public:
         // 初始化轮子速度存储
         wheel_speeds_ = {0.0, 0.0, 0.0, 0.0};  // [左前, 右前, 左后, 右后]
         
+        // 初始化关节名称
+        joint_names_ = {"lfj", "rfj", "lbj", "rbj"};
+        
         RCLCPP_INFO(this->get_logger(), "四轮控制器已启动");
         RCLCPP_INFO(this->get_logger(), "轮距: %.3f m, 轮半径: %.3f m", wheel_separation_, wheel_radius_);
     }
@@ -91,22 +94,11 @@ private:
         wheel_speeds_[2] = left_angular_velocity;   // 左后
         wheel_speeds_[3] = right_angular_velocity;  // 右后
         
-        // 发布轮子速度命令 - 使用Float64MultiArray
-        auto left_front_msg = std_msgs::msg::Float64MultiArray();
-        auto right_front_msg = std_msgs::msg::Float64MultiArray();
-        auto left_back_msg = std_msgs::msg::Float64MultiArray();
-        auto right_back_msg = std_msgs::msg::Float64MultiArray();
-        
-        // 设置数据
-        left_front_msg.data = {left_angular_velocity};
-        right_front_msg.data = {right_angular_velocity};
-        left_back_msg.data = {left_angular_velocity};
-        right_back_msg.data = {right_angular_velocity};
-        
-        left_front_pub_->publish(left_front_msg);
-        right_front_pub_->publish(right_front_msg);
-        left_back_pub_->publish(left_back_msg);
-        right_back_pub_->publish(right_back_msg);
+        // 发布轮子速度命令 - 只控制后轮
+        publishWheelCommand(left_angular_velocity, left_front_pub_);
+        publishWheelCommand(right_angular_velocity, right_front_pub_);
+        publishWheelCommand(left_angular_velocity, left_back_pub_);
+        publishWheelCommand(right_angular_velocity, right_back_pub_);
         
         // 发布所有轮子速度数组
         auto wheel_speeds_msg = std_msgs::msg::Float64MultiArray();
@@ -117,6 +109,14 @@ private:
         RCLCPP_INFO(this->get_logger(), 
                      "cmd_vel: (%.2f, %.2f) -> 轮速: 左(%.2f), 右(%.2f)", 
                      linear_x, angular_z, left_angular_velocity, right_angular_velocity);
+    }
+    
+    void publishWheelCommand(double velocity, 
+                           rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr publisher)
+    {
+        auto msg = std_msgs::msg::Float64MultiArray();
+        msg.data = {velocity};
+        publisher->publish(msg);
     }
     
     void jointStatesCallback(const sensor_msgs::msg::JointState::SharedPtr msg)
@@ -203,7 +203,7 @@ private:
         last_time_ = current_time;
     }
     
-    // 发布者 - 使用Float64MultiArray
+    // 发布者 - 只使用后轮
     rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr left_front_pub_;
     rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr right_front_pub_;
     rclcpp::Publisher<std_msgs::msg::Float64MultiArray>::SharedPtr left_back_pub_;
@@ -232,6 +232,9 @@ private:
     
     // 新增：轮子速度存储
     std::vector<double> wheel_speeds_;
+
+    // 新增：关节名称
+    std::vector<std::string> joint_names_;
 };
 
 int main(int argc, char** argv)

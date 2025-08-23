@@ -26,6 +26,10 @@
   <depend>hardware_interface</depend>
   <depend>ros2_control</depend>
   <depend>ros2_controllers</depend>
+  <depend>gazebo_ros</depend>
+  <depend>gazebo_plugins</depend>
+  <depend>urdf</depend>
+  <depend>xacro</depend>
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

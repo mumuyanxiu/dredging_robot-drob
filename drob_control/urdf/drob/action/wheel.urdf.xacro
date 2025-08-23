@@ -2,7 +2,7 @@
 <!-- 汽车轮子 xacro 文件 -->
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro">
 
-  <!-- 四个轮子链接 -->
+  <!-- 恢复前轮，但配置为无阻力的从动轮 -->
   <link name="rfw">
     <inertial>
       <origin xyz="0 0 0" rpy="0 0 0" />
@@ -111,13 +111,13 @@
     </collision>
   </link>
 
-  <!-- 四个轮子关节 -->
+  <!-- 前轮关节 - 配置为极低摩擦的自由转动 -->
   <joint name="rfj" type="continuous">
     <origin xyz="-0.2 -0.15 -0.09" rpy="1.5708 0 0" />
     <parent link="base_link" />
     <child link="rfw" />
     <axis xyz="0 0 -1" />
-    <dynamics damping="0.1" friction="0.1" />
+    <dynamics damping="0.001" friction="0.001" />
   </joint>
 
   <joint name="lfj" type="continuous">
@@ -125,7 +125,7 @@
     <parent link="base_link" />
     <child link="lfw" />
     <axis xyz="0 0 -1" />
-    <dynamics damping="0.1" friction="0.1" />
+    <dynamics damping="0.001" friction="0.001" />
   </joint>
 
   <joint name="rbj" type="continuous">
@@ -133,7 +133,7 @@
     <parent link="base_link" />
     <child link="rbw" />
     <axis xyz="0 0 -1" />
-    <dynamics damping="0.1" friction="0.1" />
+    <dynamics damping="0.2" friction="0.15" />
   </joint>
 
   <joint name="lbj" type="continuous">
@@ -141,14 +141,15 @@
     <parent link="base_link" />
     <child link="lbw" />
     <axis xyz="0 0 -1" />
-    <dynamics damping="0.1" friction="0.1" />
+    <dynamics damping="0.2" friction="0.15" />
   </joint>
 
   <!-- Gazebo标签 -->
+  <!-- 前轮Gazebo配置 - 极低摩擦力 -->
   <gazebo reference="rfw">
     <material>Gazebo/Black</material>
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
+    <mu1>0.001</mu1>
+    <mu2>0.001</mu2>
     <kp>1000000.0</kp>
     <kd>10.0</kd>
     <selfCollide>false</selfCollide>
@@ -167,8 +168,8 @@
 
   <gazebo reference="lfw">
     <material>Gazebo/Black</material>
-    <mu1>1.0</mu1>
-    <mu2>1.0</mu2>
+    <mu1>0.001</mu1>
+    <mu2>0.001</mu2>
     <kp>1000000.0</kp>
     <kd>10.0</kd>
     <selfCollide>false</selfCollide>
@@ -225,7 +226,7 @@
     <gravity>true</gravity>
   </gazebo>
 
-  <!-- 为轮子关节添加Gazebo插件 -->
+  <!-- 前轮关节的Gazebo插件 - 自由转动 -->
   <gazebo reference="rfj">
     <provideFeedback>true</provideFeedback>
     <implicitSpringDamper>0</implicitSpringDamper>
